@@ -1,2 +1,4 @@
 # Space-Invaders-Unity
-Este repositório contém o desenvolvimento de um jogo simples inspirado no Space Invaders, criado na Unity.
+Projeto desenvolvido na Unity como atividade de laboratório, consistindo na criação de um jogo simples inspirado no Space Invaders.
+
+## Requisitos do Projeto
