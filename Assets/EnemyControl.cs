@@ -2,21 +2,35 @@ using UnityEngine;
 public class EnemyControl : MonoBehaviour
 {
     private Rigidbody2D rb2d;
-    private float timer = 0.0f;
-    private float waitTime = 1.0f;
-    private float speed = 1.0f;
+    //private float timer = 0.0f;
+    //private float waitTime = 1.0f;
+    private float speed = 0.5f;
+    public int vida;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();  
+        rb2d = GetComponent<Rigidbody2D>();
+        vida = 0;
     }
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        Debug.Log("Colidiu com " + coll.collider.name);
         if(coll.collider.CompareTag("Wall"))
         {
-            FindObjectOfType<GameManager>().InverterDirecao();
+            FindFirstObjectByType<GameManager>().InverterDirecao();
+        }
+
+    }
+
+    void OnTriggerEnter2D (Collider2D coll){
+        if (coll.CompareTag("Bullet")){
+            
+            Destroy(coll.gameObject);
+            if(vida == 0){
+                Destroy(gameObject);
+            }else{
+                vida -= 1;
+            }
         }
     }
 

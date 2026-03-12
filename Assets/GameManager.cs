@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     public void InverterDirecao()
     {
         lado *= -1;
-        EnemyControl[] enemies = FindObjectsOfType<EnemyControl>();
+        EnemyControl[] enemies = FindObjectsByType<EnemyControl>(FindObjectsSortMode.None);
         foreach (EnemyControl e in enemies)
         {
             e.transform.position += Vector3.down * 0.1f;
