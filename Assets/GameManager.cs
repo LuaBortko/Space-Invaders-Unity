@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject inimigo9;
     public GameObject inimigo10;
     public List<GameObject> inimigos = new List<GameObject>();
+    public static int lado = 1;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,12 +47,22 @@ public class GameManager : MonoBehaviour
         {
             int a = Random.Range(0, inimigos.Count);
             float y = startY - i * 1f;
-            float x = screenLeft + inimigoWidth / 2;
+            float x = screenLeft + inimigoWidth / 2 + 1f;
             while (x < screenRight - 4f)
             {
                 Instantiate(inimigos[a], new Vector3(x, y, 0), Quaternion.identity);
                 x += inimigoWidth + spacing;
             }
+        }
+    }
+
+    public void InverterDirecao()
+    {
+        lado *= -1;
+        EnemyControl[] enemies = FindObjectsOfType<EnemyControl>();
+        foreach (EnemyControl e in enemies)
+        {
+            e.transform.position += Vector3.down * 0.1f;
         }
     }
 
