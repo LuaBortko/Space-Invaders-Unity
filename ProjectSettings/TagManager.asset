@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Bullet
   - Raio
+  - bloco
   layers:
   - Default
   - TransparentFX
