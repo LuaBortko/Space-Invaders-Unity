@@ -25,7 +25,7 @@ public class Interface : MonoBehaviour
         GUI.Label(new Rect(centerX - 200, centerY - 100, 400, 60), "CABO :(", titleStyle);
 
         // Texto secundário
-        GUI.Label(new Rect(centerX - 200, centerY + 100, 400, 40), "Pontuação: "+ GameManager.pontAnterior, textStyle);
+        GUI.Label(new Rect(centerX - 200, centerY + 100, 400, 40), "Pontuação: "+ GameManager.pontuacao, textStyle);
         GUI.Label(new Rect(centerX - 200, centerY + 200, 400, 40), "Maior Pontuação: "+ GameManager.pontMaior, textStyle);
 
         // Botão

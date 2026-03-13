@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject inimigo9;
     public GameObject inimigo10;
     public GameObject Boss;
+    public GameObject Bunker;
     public List<GameObject> inimigos = new List<GameObject>();
     public static int lado = 1;
     public float limiteDireita = 8.3f;
@@ -25,9 +26,10 @@ public class GameManager : MonoBehaviour
     float lastChange = 0f;
     float delay = 0.3f;
     int cont;
-    public static int vida = 5;
+    public static int vida = 3;
     bool novaFase = false;
     float proximoBoss;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,8 +37,9 @@ public class GameManager : MonoBehaviour
         addLista();
         fase();
         cont = 0;
-        vida = 5;
+        vida = 3;
         proximoBoss = Time.time + Random.Range(30f, 50f);
+        pontuacao = 0;
     }
 
     void OnGUI () {
@@ -78,6 +81,18 @@ public class GameManager : MonoBehaviour
                 x += inimigoWidth + spacing;
             }
         }
+        //Destruir os blocos para colocar os novos
+        GameObject[] blocos = GameObject.FindGameObjectsWithTag("bloco");
+        for(int i = 1; i < blocos.Length; i++)
+        {
+            Destroy(blocos[i]);
+        }
+        Instantiate(Bunker, new Vector3(0f, -3.3f, 0f), Quaternion.identity);
+        Instantiate(Bunker, new Vector3(3f, -3.3f, 0f), Quaternion.identity);
+        Instantiate(Bunker, new Vector3(-3f, -3.3f, 0f), Quaternion.identity);
+        Instantiate(Bunker, new Vector3(6f, -3.3f, 0f), Quaternion.identity);
+        Instantiate(Bunker, new Vector3(-6f, -3.3f, 0f), Quaternion.identity);
+
     }
 
     public void InverterDirecao()
@@ -95,8 +110,7 @@ public class GameManager : MonoBehaviour
             pontMaior = pontuacao;
         }
         pontAnterior = pontuacao;
-        pontuacao = 0;
-        vida = 5;
+        vida = 3;
         SceneManager.LoadScene("Fim");
     }
 

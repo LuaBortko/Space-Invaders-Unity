@@ -15,9 +15,11 @@ public class EnemyControl : MonoBehaviour
     }
     public TipoInimigo tipo;
     public GameObject Raio;
+    int controle;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        controle = 0;
         rb2d = GetComponent<Rigidbody2D>();
         speed = 0.3f;
         switch(tipo)
@@ -40,7 +42,7 @@ public class EnemyControl : MonoBehaviour
     }
 
     void OnTriggerEnter2D (Collider2D coll){
-        Debug.Log("Colidiu com: " + coll.name);
+        //Debug.Log("Colidiu com: " + coll.name);
         if (coll.CompareTag("Bullet")){
             Destroy(coll.gameObject);
             if(vida == 0){
@@ -63,7 +65,8 @@ public class EnemyControl : MonoBehaviour
     {
         rb2d.linearVelocity = new Vector2(GameManager.lado * speed, 0);
         var pos = transform.position;  
-        if(pos.y < -3.2f){
+        if(pos.y < -2.1f && controle == 0){ //-3.2
+            controle = 1;
             FindFirstObjectByType<GameManager>().perde();
         }
         
