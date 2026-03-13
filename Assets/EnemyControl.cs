@@ -4,29 +4,48 @@ public class EnemyControl : MonoBehaviour
     private Rigidbody2D rb2d;
     //private float timer = 0.0f;
     //private float waitTime = 1.0f;
-    private float speed = 0.5f;
+    public static float speed;
     public int vida;
+    public int pont;
+    public enum TipoInimigo
+    {
+        Fraco,
+        Medio,
+        Forte
+    }
+    public TipoInimigo tipo;
+    public GameObject Raio;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        vida = 0;
-    }
-
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        if(coll.collider.CompareTag("Wall"))
+        speed = 0.3f;
+        switch(tipo)
         {
-            FindFirstObjectByType<GameManager>().InverterDirecao();
-        }
+            case TipoInimigo.Fraco:
+                vida = 0;
+                pont = 10;
+                break;
 
+            case TipoInimigo.Medio:
+                vida = 1;
+                pont = 20;
+                break;
+
+            case TipoInimigo.Forte:
+                vida = 2;
+                pont = 30;
+                break;
+        }
     }
 
     void OnTriggerEnter2D (Collider2D coll){
+        Debug.Log("Colidiu com: " + coll.name);
         if (coll.CompareTag("Bullet")){
-            
             Destroy(coll.gameObject);
             if(vida == 0){
+                speed += 0.02f;
+                GameManager.pontuacao += pont;
                 Destroy(gameObject);
             }else{
                 vida -= 1;
@@ -34,13 +53,26 @@ public class EnemyControl : MonoBehaviour
         }
     }
 
+    void Atirar()
+    {
+        Instantiate(Raio, transform.position, Quaternion.identity);
+    }
+
     // Update is called once per frame
     void Update()
     {
         rb2d.linearVelocity = new Vector2(GameManager.lado * speed, 0);
+        var pos = transform.position;  
+        if(pos.y < -3.2f){
+            FindFirstObjectByType<GameManager>().perde();
+        }
+        
+        if(Random.value < 0.00003f)
+            {
+                Atirar();
+            }
         /*timer += Time.deltaTime;
         if (timer >= waitTime){
-            ChangeState();
             timer = 0.0f;
         }*/
     }

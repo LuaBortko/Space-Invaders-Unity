@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour
     public KeyCode pow = KeyCode.Space;    // Move a raquete para baixo
     private float speed = 5f;             // Define a velocidade da raquete
     private Rigidbody2D rb2d;               // Define o corpo rigido 2D que representa a raquete
-    public float boundX = 7.5f;            // Define os limites em Y
+    public float boundX = 8.3f;            // Define os limites em Y
     public GameObject Bala;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,10 +39,23 @@ public class PlayerControl : MonoBehaviour
             pos.x = -boundX;                    // Corrige a posicao da raquete caso ele ultrapasse o limite inferior
         }
         transform.position = pos;               // Atualiza a posição da raquete
-        if (Input.GetKey(pow)) {            
-            Instantiate(Bala, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
+        if (Input.GetKey(pow)) {
+            GameObject[] balas = GameObject.FindGameObjectsWithTag("Bullet");       
+            if(balas.Length == 0){
+                Instantiate(Bala, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
+            }  
         }
         
+    }
+
+    void OnTriggerEnter2D (Collider2D coll){
+        if (coll.CompareTag("Raio")){
+            Destroy(coll.gameObject);
+            GameManager.vida -= 1;
+            if(GameManager.vida == 0){
+                FindFirstObjectByType<GameManager>().perde();
+            }
+        }
     }
 
     public void inicio(){

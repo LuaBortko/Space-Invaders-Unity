@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class BulletControl : MonoBehaviour
+public class RaioControl : MonoBehaviour
 {
     private Rigidbody2D rb2d;
-    private float speed = 8f;
+    private float speed = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,10 +13,12 @@ public class BulletControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb2d.linearVelocity = new Vector2(0, speed);
+        rb2d.linearVelocity = new Vector2(0, -speed);
         var pos = transform.position; 
-        if(pos.y > 5.2f){
+        if(pos.y < -5.3f){
             Destroy(gameObject);
         }
     }
+
+
 }

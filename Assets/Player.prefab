@@ -181,5 +181,5 @@ MonoBehaviour:
   moveLeft: 97
   moveRight: 100
   pow: 32
-  boundX: 7.5
+  boundX: 8.3
   Bala: {fileID: 8453079043288473348, guid: c4bbb2a5952f6b24db4621cd9bf38a4b, type: 3}
